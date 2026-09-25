@@ -1,0 +1,22 @@
+{
+  "name": "Interview Coach",
+  "short_name": "Interview Coach",
+  "description": "Daily Senior Full-Stack (.NET + Angular) interview preparation: plan, revision, speaking practice and mock interviews.",
+  "id": "./",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F4F1EA",
+  "theme_color": "#1F6B57",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Start today's plan", "url": "./?go=start", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
+    { "name": "I'm losing focus (5 min)", "url": "./?go=losing", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] }
+  ]
+}
