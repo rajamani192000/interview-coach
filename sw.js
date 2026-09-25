@@ -1,5 +1,5 @@
 // Interview Coach service worker: offline app shell + best-effort daily nudge.
-const VERSION = 'ic-v4';
+const VERSION = 'ic-v5';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon-180.png', './favicon-32.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION && k !== 'ic-status' && k !== 'ic-runtime').map(k => caches.delete(k)))).then(() => self.clients.claim())); });

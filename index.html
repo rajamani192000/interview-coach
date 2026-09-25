@@ -1682,7 +1682,8 @@ VIEWS.settings = () => {
   C.install = `<div class="card"><h3>Install as an app (Android, iPhone, desktop)</h3>
   ${standalone ? '<div class="banner">✓ You are using the installed app.</div>' : ''}
   ${U.installEvt ? `<button class="btn primary" data-act="installApp">Install Interview Coach</button>` : ''}
-  <p class="small">${inArtifact() ? 'This claude.ai page can be pinned but not installed. Install the web-app version (the <b>Interview-Coach-PWA</b> package, hosted on GitHub Pages) for a home-screen icon, full-screen view, offline use, microphone input and notifications.' : 'This version can be installed.'}</p>
+  <p class="small">${inArtifact() ? 'This claude.ai page can be pinned but not installed. Open the app link below on your phone or PC to install it: home-screen icon, full screen, offline use, microphone input and notifications.' : 'This version can be installed.'}</p>
+  <div class="row"><a class="btn" href="https://rajamani192000.github.io/interview-coach/" target="_blank" rel="noopener">rajamani192000.github.io/interview-coach</a><button class="btn ghost sm" data-act="copyLink">Copy link</button></div>
   <div class="grid g3 small"><div><b>Android (Chrome)</b><p class="muted">Open the app link → ⋮ menu → <b>Install app</b> (or Add to Home screen).</p></div><div><b>iPhone / iPad (Safari)</b><p class="muted">Open the link in Safari → Share → <b>Add to Home Screen</b>. Notifications need iOS 16.4+ and the installed icon.</p></div><div><b>Desktop (Chrome / Edge)</b><p class="muted">Click the install icon at the right of the address bar.</p></div></div></div>`;
   C.help = `<div class="card"><h3>How to use it every day</h3><ol class="small" style="padding-left:18px;display:grid;gap:6px">
   <li><b>Open → press START.</b> The plan is already built: revisions due, weak topics, new main-focus questions and one speaking drill.</li>
@@ -1724,7 +1725,7 @@ function modal(html) { closeModal(); const d = document.createElement('div'); d.
 function closeModal() { const m = $('#scrim'); m && m.remove(); }
 function onboarding() {
   const p = S.profile;
-  modal(`<span class="eyebrow">Set up · 30 seconds</span><h2>Your interview preparation coach</h2><p class="small muted">Your Core priority list (${S.questions.filter(q => q.core).length} questions with interview-ready answers) comes first; the other ${S.questions.filter(q => !q.core).length} questions from your course and articles stay optional. Each day the app builds a plan from them: revisions due, weak topics, new questions and speaking practice.</p>
+  modal(`<span class="eyebrow">Set up · 30 seconds</span><h2>Your interview preparation coach</h2><p class="small muted">Your main-focus questions come first: resume questions (if you upload one), then the Core list (${S.questions.filter(q => q.core && q.tier === 1).length}) and the Priority list (${S.questions.filter(q => q.core && q.tier === 2).length}), all with interview-ready answers; the other ${S.questions.filter(q => !q.core).length} questions from your course and articles stay optional. Each day the app builds a plan from them: revisions due, weak topics, new questions and speaking practice.</p>
   <div class="field"><label for="o_role">Target role</label><input class="input" id="o_role" value="${esc(p.goalRole)}"></div>
   <div class="grid g2"><div class="field"><label for="o_sal">Target salary</label><input class="input" id="o_sal" value="${esc(p.targetSalary)}"></div><div class="field"><label for="o_time">Preferred preparation time</label><input class="input" id="o_time" type="time" value="${p.prefTime}"></div></div>
   <div class="stack"><span class="lbl">How much time can you usually spend per day?</span><div class="row">${[15, 30, 45, 60, 90, 120].map(m => `<button class="chip ${p.dailyMinutes === m ? 'on' : ''}" data-act="obTime" data-arg="${m}">${m < 60 ? m + ' min' : m / 60 + ' h'}</button>`).join('')}</div></div>
@@ -1855,6 +1856,7 @@ const ACT = {
   dismissFocus: () => { S.created = Date.now() - 6 * DAY; save(); render(); },
   moveTime: t => { S.profile.prefTime = t; save(); render(); toast('Preparation time moved to ' + t); },
   dismissHint: () => { S.profile.scheduleHintDismissed = today(); save(); render(); },
+  copyLink: () => copyText('https://rajamani192000.github.io/interview-coach/', 'App link copied'),
   setTab: k => { U.setTab = k; render(); },
   icsDl: () => download('interview-prep-daily.ics', calLinks().ics, 'text/calendar'),
   voiceTest: () => { const o = S.profile.voiceOut; S.profile.voiceOut = true; Voice.speak('Tell me about the difference between IEnumerable and IQueryable.'); S.profile.voiceOut = o; },
