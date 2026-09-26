@@ -1638,6 +1638,7 @@ const Account = {
   async renderGoogle(el, onToken, onError) {
     try {
       await this.loadGoogle();
+      if (!el.isConnected || el.dataset.done) return; el.dataset.done = '1'; el.innerHTML = '';
       google.accounts.id.initialize({ client_id: CLOUD_CFG.googleClientId, callback: r => r && r.credential ? onToken(r.credential) : onError(new Error('Google sign-in was cancelled')), ux_mode: 'popup', auto_select: false, cancel_on_tap_outside: true, use_fedcm_for_prompt: true });
       google.accounts.id.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', shape: 'pill', logo_alignment: 'center', width: Math.min(360, Math.max(220, el.clientWidth || 300)) });
       this.googleReady = true;
